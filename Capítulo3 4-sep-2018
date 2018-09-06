@@ -1,0 +1,89 @@
+###############################UAEM###################################
+############ANALISIS DE REGRESION#####################################
+############DR. EN E.P. SERGIO CUAUHTEMOC GAXIOLA ROBLES LINARES######
+############GUADALUPE SALINAS CASTRO##################################
+############KAREN JAZMIN ROLDAN PASTRANA##############################
+############KAREN DENISSE AGUILAR SERRANO#############################
+############ALFREDO VILLAGRAN GARCIA##################################
+#ejercicios unidad 3
+#ejercicio 1
+#a)
+attach("huron")
+x<-LakeHuron
+x
+y<-c(1775:1872)
+y
+plot(x,y)
+#b)
+identify(x,y)
+
+
+#ejercicio 2
+install.packages("MASS")
+require(MASS)
+library(MASS)
+plot(Animals[,1],Animals[,2], xlab = "body", ylab = "brain")
+
+par(mfrow=c(2,2), pch=16)
+attach(Animals) # This dataset is in the MASS package, which must be attached
+plot(body, brain)
+plot(log(body),log(brain))
+detach(Animals)
+row.names(Animals) <- c(".",".",".",".",".","dipliodocus",".",".",".",".",".",".",".",".",".","triceratops",".",".",".",".",".",".",".",".",".","brachiosaurus",".",".")
+attach(Animals) 
+plot(Animals[,1],Animals[,2])
+text(x=body, y=brain, labels=row.names(Animals), pos=4)
+
+#ejercicio 3
+hist(Animals[,2])
+stem(qqnorm(Animals[,2]))
+plot(density(Animals[,2]))
+
+###Ejercicio 4
+x<-rnorm(10)
+x
+help(rnorm)
+y<-(x*4)+170
+y
+
+#ejercicio 5
+par(mfrow=c(3,4), pch=16)
+plot(rnorm(10))
+plot(rnorm(10))
+plot(rnorm(10))
+plot(rnorm(10))
+plot(rnorm(100))
+plot(rnorm(100))
+plot(rnorm(100))
+plot(rnorm(100))
+plot(rnorm(1000))
+plot(rnorm(1000))
+plot(rnorm(1000))
+plot(rnorm(1000))
+detach(Animals)
+par(mfrow=c(1,1))
+
+#ejercicio 6
+x<-runif(10)
+x
+
+#ejercicio 7
+chi<-rchisq(10,1)
+chi
+tst<-rt(10,1)
+tst
+nm<-tst*sqrt(chi/1)
+nm
+#ejercicio 8
+hills
+attach(hills)
+here <- sex == "f"
+#Histograma
+hist(hills[,1])
+hist(hills[,2])
+#Gráfico de densidad
+plot(density(hills[,1]))
+plot(density(hills[,2]))
+#Distribución normal
+qqnorm(hills[,1])
+qqnorm(hills[,2])
