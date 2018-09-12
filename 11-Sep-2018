@@ -1,0 +1,70 @@
+
+base1
+x<-c(42.2,42.6,43.3,43.5,43.7,44.1,44.9,45.3,45.7,45.7,45.9,46,46.2,46.2,46.8,46.8,47.1,47.2)
+y<-c(44,44,44,45,45,46,46,46,47,48,48,48,47,48,48,49,49,49)
+
+mod1<-lm(y~x) #plantea toda la información del modelo lineal B0,B1,r cuadrada, SSE , etc
+
+show(mod1) #Muestra B0 y B1
+names(mod1) #me dice el nombre de todos los elementos que hay dentro del modelo (es lo que nos puede arrojar el modelo)
+
+summary(mod1)
+anova(mod1) #muestra tabla Anova
+
+#Como se puede ver sbgorro1 (error estandar de B1)= .7806 se puede visualizar con summary
+# p value = 2.43e-10
+# en este caso el parámetrode interés es b1 , el cambio esperado en y
+#con un incremento en x, la hipótesis nula H0: B1=0 es rechazada (porque p value<.05 )
+#Se necesita un p value< .05 para rechazar B0
+##y se acepta la Hipótesis alternativa Ha: B1 distinta de cero, o sea nuestro B1 es significativo, es decir, si podemos hacer inferencias con él
+
+######### Ejercicio 1
+x1<-c(635,644,711,708,836,820,810,870,856,923,878,937,948)
+y1<-c(100,93,88,84,77,75,74,63,57,55,47,43,38)
+
+#Contesta la siguiente pregunta+}
+#Calcula la proporción de la variación observada puede ser atribuida al mod3
+#88.28%, se saca con rcuadrada=88.28% , se obtiene con el summary, es una r cuadrada alta
+
+#Calcule la desv.estándar estimada de b1
+# .01837 se calcula con el summary y aparece como error estandar de x1
+
+#Calcule un Intervalo de confianza con 95% de la variación de y con un aumento de una unidad de x
+# Buscando t en la tabla t student para 11 grados de libertad (13-2) obteneemos t=2.20
+# Sbigorrito=.01837
+#Ahora ya puedo encontrar un intervalo de confianza par B1 y resulta (-0.216014, -0.135186)
+#Interpretación: Con un aumento de 1 unidad en x, y va a varíar entre -0.216014 y -0.135186 
+
+mod3<-lm(y1~x1) #Pido que calcule toda la información del modelo de regresión lineal
+show(mod3)
+
+summary(mod3)
+anova(mod3)
+
+
+######### Ejercicio 2
+x2<-c(5,12,14,17,23,30,40,47,55,67,72,81,96,112,127) #Volumen de la precipitación pluvial
+y2<-c(4,10,13,15,15,25,27,46,38,46,53,70,82,99,100)  #Volumen de escurrimiento
+
+### ¿Existe una relación útil entre la precipitación yel escurrimiento?
+# Si, a simple vista al observar la gráfica de dispersión podemos observar que si tienen 
+# una relación fuerte positiva, pero se puede comprobar con la correlación, que 
+# resulta ser 0.98, es decir si tienen una relación fuerte positiva. Sin embargo, para poder decir
+# que el mrls es adecuado para explicar esta relación, sacamos el coeficiente de correlación 
+# utilizando la función summary, nos arroja que r^2=0.973, podemos decir que el 97.3% de la 
+# la variación de y puede explicarse con el modelo.
+
+#
+###Calcule un Intervalo de Confianza con 95% e interprete.
+# Para ello necesitamos la estimación puntual de B1, que es 0.82697, el error estándar
+# que es  0.03652 y el valor de t=2.16037 
+#El intervalo de confianza es 0.82697-(2.1603*0.03652) , 0.82697+(2.1603*0.03652)
+# IC= ( .748073, .90586 ) 
+#Cuando hay un aumento de 1 unidad en el volumen de la precipitación pluvial, el volumen
+# de escurrimiento tiene una variación entre ( 0.748073 - 0.90586 ) 
+
+cor(x2,y2)
+plot(x2,y2)
+mod4<-lm(y2~x2)
+summary(mod4)
+n<-length(x2)
