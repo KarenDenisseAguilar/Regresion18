@@ -1,0 +1,112 @@
+
+#KAREN DENISSE AGUILAR SERRANO
+### ejercicio 1 #####
+  #considere los sig datos x cant filtrada, y escurrimiento
+x<-c(23,45,68,91,114,136,159,182,205,228)
+y<-c(53.5, 26.9, 54.8, 33.8, 29.9, 8.2, 17.2, 12.2, 3.2, 11.1)
+     #a) Â¿Avala la grÃ¡fica de dispersiÃ³n la seleccion del mrls?Explique
+plot(x,y)
+#A simple vista, podemos decir que nuestras variables tienen una relación positiva, viendo los puntos, 
+#podemos decir que siguen una tendenciafuerte positiva, por lo que el modelo de regresión lineal simple 
+# si nos puede ayudar a explicar esta relación.
+
+     #b) Obtenga la ecuaciÃ³n de min cuadrados
+mod<-lm(y~x)
+show(mod)
+# recta de min cuadrados: y= 52.7065 - 0.2208 x
+
+     #c) Â¿Que proporciÃ³n de la variaciÃ³n observada en el valor de y
+#puede ser atribuida a la relaciÃ³n del modelo?
+summary(mod)
+ #rcuadrada=.664 , 66.4% de la variación de y queda explicada con mrls.
+
+
+     #d) Â¿SerÃ¡ que el mrls especifa una relaciÃ³n Ãºtil? Utiliza 
+#una prueba de hipÃ³tesis y menciona a que nivel de signifcancia
+# se presenta la relaciÃ³n Ãºtil?
+#H0: B1=0
+#Ha: B1 distinta de cero
+#P VALUE=0.002498, P VALUE<.05, esto quiere decir que se rechaza H0 y aceptamos que B1 es significativa,a un nivel del 95%, con un alfa de 5%
+#o sea B1  es distinta de 0
+
+     #e)Â¿serÃ¡ que hay una fuerte evidencia para concluir que al menos 
+#existe valor de y promedio ... asociado a un incremento de x....
+# Si existe un valor que se asocie a un incremento de x, ese valor es B1=-0.22084, esto quiere 
+#decir que por cada aumento en una unidad de x, y va  adisminuir en .22084 unidades.
+
+#pruebe las p.h con alpha = .05?
+
+
+     #f) calcule e interprete un i.c de 90 % para el promedio verdadero
+#de y cuando x tiene un valor de 340
+
+
+aa3<-data.frame(x=340)
+predict(mod,aa3,interval = "confidence",level = .90)
+
+     #f) calcule e interprete un i.p de 90 % para el promedio verdadero
+aa4<-data.frame(x=340)
+predict(mod,aa4,interval = "prediction",level = .90)
+
+#de y cuando x tiene un valor de 15 
+aa5<-data.frame(x=15)
+#Intervalo de confianza
+predict(mod,aa5,interval = "confidence",level = .90)
+#INtervalo de predicción
+aa6<-data.frame(x=15)
+predict(mod,aa6,interval = "prediction",level = .90)
+
+     #1) un i.c al 95 % para y cuando el valor de x es 200
+    #Intervalo de confianza
+aa7<-data.frame(x=200)
+#Intervalo de confianza
+predict(mod,aa7,interval = "confidence",level = .95)
+
+    #) un i.p al 95 % para y cuando el valor de x es xmedia
+#INtervalo de predicción
+xm<-mean(x)
+xm
+aa8<-data.frame(x=125.1)
+predict(mod,aa8,interval = "prediction",level = .95)
+
+#e) estima sigma cuadrada y comparala con el summary
+summary(mod)
+scuadrada<-10.55^2
+scuadrada
+
+#scuadradamanual
+
+mediax<-mean(x)
+mediax
+mediay<-mean(y)
+mediay
+
+Sxy<-sum((x-mediax)*(y-mediay))
+Sxy
+Sxx<-sum((x-mediax)*(x-mediax))
+Sxx
+
+B1<-Sxy/Sxx
+B1
+B0<-mediay-(B1*mediax)
+B0
+
+Yestimadas<-(B0+(B1*x))
+Yestimadas
+Yresiduos<-(y-Yestimadas)
+SSE<-sum(Yresiduos*Yresiduos)
+SSE
+Varianza<-SSE/8
+Varianza
+
+S<-sqrt(Varianza)
+S
+"Por ambos métodos es 111.2765"
+     #e) estima r cuadrad  y comparala con el  r cuadrad multiple del summary
+#con summary rcuadrada=.7013
+#rcuadrada manual
+#Coeficiente de determinacion
+SST1=sum((y-mediay)^2)
+r21cuadrada=1-(SSE/SST1)
+r21cuadrada
+#con ambos métodos me sale .7013
